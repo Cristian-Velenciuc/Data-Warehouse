@@ -23,6 +23,7 @@ def create_tables_transformation():
         CREATE TABLE transformation.prd_info (
             prd_id INT,
             prd_key VARCHAR(50),
+            prd_cat VARCHAR(10),
             prd_nm VARCHAR(150),
             prd_cost DECIMAL(10,2),
             prd_line VARCHAR(50),
