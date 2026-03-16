@@ -6,11 +6,10 @@ def transformation_prd_info():
     with connect("test_database") as conn:
 
         df = pd.read_sql("SELECT * FROM ingestion.prd_info", conn)
-        print("Rows before cleaning:", len(df))
-        print(df)
+
 
         df["prd_cat"] = df["prd_key"].str[:5] # First 5 become new column (category)    
-        df["prd_key"] = df["prd_key"].str[6:] # FIrst 5 + the(-) element get removed from this column
+        df["prd_key"] = df["prd_key"].str[6:] # First 5 + the(-) element get removed from this column
 
         df = df[
                     [
@@ -38,7 +37,7 @@ def transformation_prd_info():
             "S": "Sport"
         }
         df["prd_line"] = df["prd_line"].map(line_map).fillna(df["prd_line"])
-        print("Rows after cleaning:", len(df))
+        
 
         # Fix the time issue
         df["prd_end_dt"] = df.groupby("prd_key")["prd_start_dt"].shift(-1) - pd.Timedelta(days=1)
@@ -65,7 +64,7 @@ def transformation_prd_info():
 
         conn.commit()
 
-        print("Customer table transformed successfully!")
+        print("Product table transformed successfully!")
 
 
 if __name__ == "__main__":
