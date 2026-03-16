@@ -38,14 +38,14 @@ def create_tables_transformation():
             sls_ord_num VARCHAR(20),
             sls_prd_key VARCHAR(50),
             sls_cust_id INT,
-            sls_order_dt INT,
-            sls_ship_dt INT,
-            sls_due_dt INT,
+            sls_order_dt DATE,
+            sls_ship_dt DATE,
+            sls_due_dt DATE,
             sls_sales DECIMAL(12,2),
             sls_quantity INT,
             sls_price DECIMAL(12,2)
         )
-        """)
+        """) 
 
         cur.execute("""
         IF OBJECT_ID('transformation.cust_az12', 'U') IS NULL
