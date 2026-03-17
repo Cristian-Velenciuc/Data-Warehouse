@@ -50,9 +50,10 @@ def create_tables_transformation():
         cur.execute("""
         IF OBJECT_ID('transformation.cust_az12', 'U') IS NULL
         CREATE TABLE transformation.cust_az12 (
-            CID VARCHAR(50),
-            BDATE DATE,
-            GEN VARCHAR(20)
+            cst_id INT,
+            cst_key VARCHAR(50),
+            cst_birthdate DATE,
+            cst_gndr VARCHAR(20)
         )
         """)
 

@@ -9,7 +9,9 @@ def transformation_cust_info():
         df = pd.read_sql("SELECT * FROM ingestion.cust_info", conn)
         print("Rows before cleaning:", len(df))
 
-    
+        df["cst_firstname"] = df["cst_firstname"].str.strip()
+        df["cst_lastname"] = df["cst_lastname"].str.strip()
+
         # Remove rows where customer id is null
         df = df.dropna(subset=["cst_id"])
 
