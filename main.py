@@ -3,6 +3,8 @@ from ingestion import create_tables_ingestion
 from ingestion import load_data_ingestion
 from transformation import create_tables_transformation
 from transformation import run_transformation
+from curated import customer_dimension
+from curated import product_dimension
 
 def main():
     print("\nStarting pipeline")
@@ -24,6 +26,11 @@ def main():
     run_transformation()
     print("\nTransformation Complete, data was cleaned and saved")
 
+    print("\nCreating Customer Dimension")
+    customer_dimension()
+
+    print("\nCreating Product Dimension")
+    product_dimension()
 
     ###
     print("\nPipeline finished")
