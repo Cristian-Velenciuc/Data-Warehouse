@@ -20,6 +20,13 @@ def create_schemas():
         EXEC('CREATE SCHEMA transformation');
         """)
 
+        cur.execute("""
+        IF NOT EXISTS (
+            SELECT * FROM sys.schemas WHERE name = 'curated'
+        )
+        EXEC('CREATE SCHEMA curated');
+        """)
+
         conn.commit()
 
 if __name__ == "__main__":
