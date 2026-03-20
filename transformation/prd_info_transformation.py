@@ -64,7 +64,6 @@ def transformation_prd_info():
 
         conn.commit()
 
-        print("Product table transformed successfully!")
 
 
 if __name__ == "__main__":

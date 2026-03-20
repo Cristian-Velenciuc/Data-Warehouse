@@ -70,7 +70,6 @@ def transformation_sales_details():
 
         cursor.close()
 
-        print("Rows inserted:", len(df))
 
 
 if __name__ == "__main__":

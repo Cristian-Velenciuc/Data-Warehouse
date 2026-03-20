@@ -7,7 +7,7 @@ def transformation_cust_info():
     with connect("test_database") as conn:
 
         df = pd.read_sql("SELECT * FROM ingestion.cust_info", conn)
-        print("Rows before cleaning:", len(df))
+
 
         df["cst_firstname"] = df["cst_firstname"].str.strip()
         df["cst_lastname"] = df["cst_lastname"].str.strip()
@@ -33,7 +33,6 @@ def transformation_cust_info():
         }
 
         df["cst_gndr"] = df["cst_gndr"].map(gender_map).fillna(df["cst_gndr"])
-        print("Rows after cleaning:", len(df))
 
         # Truncate Table
         cur = conn.cursor()
@@ -56,8 +55,6 @@ def transformation_cust_info():
         cur.executemany(insert_query, rows)
 
         conn.commit()
-
-        print("Customer table transformed successfully!")
 
 
 if __name__ == "__main__":
