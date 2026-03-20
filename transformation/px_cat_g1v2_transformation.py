@@ -8,9 +8,6 @@ def transformation_px_cat_g1v2():
 
         df = pd.read_csv("data_source/source_erp/PX_CAT_G1V2.csv")
 
-        print("Rows loaded:", len(df))
-
-       
         df.columns = df.columns.str.strip()
 
         cur = conn.cursor()
@@ -44,9 +41,6 @@ def transformation_px_cat_g1v2():
         cur.executemany(insert_query, rows)
 
         conn.commit()
-
-        print("PX_CAT_G1V2 imported successfully!")
-
 
 if __name__ == "__main__":
     transformation_px_cat_g1v2()

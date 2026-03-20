@@ -17,7 +17,6 @@ def load_data_ingestion():
 
                 if file.endswith(".csv"):
 
-                    print(f"Loading file: {file}")
 
                     full_path = os.path.join(root, file)
 
@@ -47,8 +46,6 @@ def load_data_ingestion():
                     cur.executemany(query, rows)
 
                     conn.commit()
-
-                    print(f"{len(rows)} rows inserted into ingestion.{table_name}")
 
 
 if __name__ == "__main__":

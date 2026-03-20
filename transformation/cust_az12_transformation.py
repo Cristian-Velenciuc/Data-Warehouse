@@ -6,7 +6,6 @@ def transformation_cust_az12():
     with connect("test_database") as conn:
 
         df = pd.read_sql("SELECT * FROM ingestion.cust_az12", conn)
-        print("Rows before cleaning:", len(df))
 
         df.columns = df.columns.str.strip()
         # Remove rows where CID is null
@@ -54,8 +53,6 @@ def transformation_cust_az12():
         # Keep only final columns
         df = df[["cst_id", "cst_key", "cst_birthdate", "cst_gndr"]]
 
-        print("Rows after cleaning:", len(df))
-
         cur = conn.cursor()
         cur.execute("""
         TRUNCATE TABLE transformation.cust_az12
@@ -75,8 +72,6 @@ def transformation_cust_az12():
         cur.executemany(insert_query, rows)
 
         conn.commit()
-
-        print("cust_az12 transformed successfully!")
 
 
 if __name__ == "__main__":

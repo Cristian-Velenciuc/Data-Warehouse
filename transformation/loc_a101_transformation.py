@@ -7,18 +7,24 @@ def transformation_loc_a101():
     with connect("test_database") as conn:
 
         df = pd.read_sql("SELECT * FROM ingestion.loc_a101", conn)
-        print("Rows before cleaning:", len(df))
         df.columns = df.columns.str.strip()
 
         # Remove rows where CID is null
         df = df.dropna(subset=["CID"])
 
         # Clean text fields
-        df["CID"] = df["CID"].astype(str).str.strip()
+        df["CID"] = (
+            df["CID"]
+            .astype(str)
+            .str.strip()
+            .str.upper()
+            .str.replace("-", "", regex=False)
+        )
         df["CNTRY"] = df["CNTRY"].astype(str).str.strip()
 
         # Remove empty CID rows
         df = df[df["CID"] != ""]
+        
 
         # Remove duplicate customers, keep last
         df = df.drop_duplicates(subset=["CID"], keep="last")
@@ -56,7 +62,6 @@ def transformation_loc_a101():
             .fillna(df["CNTRY"].astype(str).str.strip().str.title())
         )
 
-        print("Rows after cleaning:", len(df))
         cur = conn.cursor()
         cur.execute("""
         IF OBJECT_ID('transformation.loc_a101', 'U') IS NULL
@@ -88,7 +93,6 @@ def transformation_loc_a101():
         cur.executemany(insert_query, rows)
         conn.commit()
 
-        print("loc_a101 transformed successfully!")
 
 
 if __name__ == "__main__":
