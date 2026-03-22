@@ -1,3 +1,5 @@
+import schedule
+import time
 from base_codes import create_schemas
 from ingestion import create_tables_ingestion
 from ingestion import load_data_ingestion
@@ -47,4 +49,14 @@ def main():
     print("\nPipeline finished")
 
 if __name__ == "__main__":
+    # Run once immediately
     main()
+
+    # Schedule it for running everyday at 1 AM
+    schedule.every().day.at("01:00").do(main)
+
+    print("Scheduler started. Waiting for 01:00 every day")
+
+    while True:
+        schedule.run_pending()
+        time.sleep(30)
